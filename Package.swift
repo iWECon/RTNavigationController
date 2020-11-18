@@ -18,7 +18,8 @@ let package = Package(
     targets: [
         .target(
             name: "RTNavigationController",
-            dependencies: []
+            dependencies: [],
+            path: "Sources"
         ),
         .testTarget(
             name: "RTNavigationControllerTests",
