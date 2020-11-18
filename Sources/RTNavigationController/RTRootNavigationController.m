@@ -669,7 +669,7 @@ __attribute((overloadable)) static inline UIViewController *RTSafeWrapViewContro
 #pragma clang diagnostic pop
         }
         else {
-            UIImage *backImg = [[UIImage imageNamed:@"general_back"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+            UIImage *backImg = [[UIImage imageNamed:@"general_back" inBundle:SWIFTPM_MODULE_BUNDLE compatibleWithTraitCollection:nil] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
             viewController.navigationItem.leftBarButtonItems = @[[[UIBarButtonItem alloc] initWithImage:backImg style:UIBarButtonItemStylePlain target:viewController action:@selector(dismiss)]];
         }
     }
