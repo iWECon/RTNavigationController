@@ -97,6 +97,13 @@
     }
 }
 
+- (UIColor *)rt_backIndicatorColor {
+    return (UIColor *)objc_getAssociatedObject(self, @selector(rt_backIndicatorColor));
+}
+- (void)setRt_backIndicatorColor:(UIColor *)rt_backIndicatorColor {
+    objc_setAssociatedObject(self, @selector(rt_backIndicatorColor), rt_backIndicatorColor, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
 @end
 
 @implementation UIPercentDrivenInteractiveTransition (Conditional)
