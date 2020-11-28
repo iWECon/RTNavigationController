@@ -125,6 +125,9 @@
     }
     [bar setTitleTextAttributes:dict];
 }
+- (void)rt_setNavigationBarBackgroundColor:(UIColor *)color {
+    [self.navigationController.navigationBar setBarTintColor:color];
+}
 
 @end
 
