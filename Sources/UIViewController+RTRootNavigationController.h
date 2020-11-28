@@ -71,6 +71,8 @@ IB_DESIGNABLE
 
 - (void)dismissWithCompletion:( void (^ _Nullable)(void))completion animated:(BOOL)animated;
 
+- (UIColor * _Nullable)backIndicatorColor;
+
 @end
 
 @interface UIPercentDrivenInteractiveTransition (Conditional)

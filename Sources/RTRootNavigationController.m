@@ -670,6 +670,30 @@ __attribute((overloadable)) static inline UIViewController *RTSafeWrapViewContro
         }
         else {
             UIImage *backImg = [[UIImage imageNamed:@"general_back" inBundle:SWIFTPM_MODULE_BUNDLE compatibleWithTraitCollection:nil] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+            
+            UIColor *tintColor = [self backIndicatorColor];
+            if (tintColor) {
+                CGRect rect = CGRectMake(0, 0, backImg.size.width, backImg.size.height);
+                BOOL isOpq = NO;
+                CGImageRef imageRef = backImg.CGImage;
+                CGImageAlphaInfo alphaInfo = CGImageGetAlphaInfo(imageRef);
+                if (alphaInfo) {
+                    isOpq = (alphaInfo == kCGImageAlphaNoneSkipLast) || (alphaInfo == kCGImageAlphaNoneSkipFirst) || (alphaInfo == kCGImageAlphaNone);
+                }
+                
+                UIGraphicsBeginImageContextWithOptions(backImg.size, isOpq, backImg.scale);
+                CGContextRef context = UIGraphicsGetCurrentContext();
+                CGContextTranslateCTM(context, 0, backImg.size.height);
+                CGContextScaleCTM(context, 1.0, -1.0);
+                CGContextSetBlendMode(context, kCGBlendModeNormal);
+                CGContextClipToMask(context, rect, backImg.CGImage);
+                CGContextSetFillColorWithColor(context, tintColor.CGColor);
+                CGContextFillRect(context, rect);
+                
+                backImg = UIGraphicsGetImageFromCurrentImageContext();
+                UIGraphicsEndImageContext();
+            }
+            
             viewController.navigationItem.leftBarButtonItems = @[[[UIBarButtonItem alloc] initWithImage:backImg style:UIBarButtonItemStylePlain target:viewController action:@selector(dismiss)]];
         }
     }

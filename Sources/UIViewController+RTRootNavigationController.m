@@ -97,6 +97,10 @@
     }
 }
 
+- (UIColor *)backIndicatorColor {
+    return nil;
+}
+
 @end
 
 @implementation UIPercentDrivenInteractiveTransition (Conditional)
