@@ -106,20 +106,20 @@
 
 - (void)rt_setNavigationBarTitleColor:(UIColor *)color {
     UINavigationBar *bar = [self.navigationController navigationBar];
-    NSMutableDictionary *dict = [[bar titleTextAttributes] mutableCopy];
+    NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithDictionary:[bar titleTextAttributes]];
     dict[NSForegroundColorAttributeName] = color;
     [bar setTitleTextAttributes:[dict copy]];
 }
 - (void)rt_setNavigationBarTitleFont:(UIFont *)font {
     UINavigationBar *bar = [self.navigationController navigationBar];
-    NSMutableDictionary *dict = [[bar titleTextAttributes] mutableCopy];
+    NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithDictionary:[bar titleTextAttributes]];
     dict[NSFontAttributeName] = font;
     [bar setTitleTextAttributes:[dict copy]];
 }
 
 - (void)rt_setNavigationBarTitleAttributes:(NSDictionary *)attributes {
     UINavigationBar *bar = [self.navigationController navigationBar];
-    NSMutableDictionary *dict = [[bar titleTextAttributes] mutableCopy];
+    NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithDictionary:[bar titleTextAttributes]];
     for (NSString *key in attributes.allKeys) {
         [dict setValue:attributes[key] forKey:key];
     }
