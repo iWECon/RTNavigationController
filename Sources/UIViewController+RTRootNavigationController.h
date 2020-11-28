@@ -71,6 +71,8 @@ IB_DESIGNABLE
 
 - (void)dismissWithCompletion:( void (^ _Nullable)(void))completion animated:(BOOL)animated;
 
+
+/// custom back indicaotr(general_back) color
 @property (nonatomic, retain) IBInspectable UIColor * _Nullable rt_backIndicatorColor;
 
 @end
