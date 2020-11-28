@@ -671,7 +671,7 @@ __attribute((overloadable)) static inline UIViewController *RTSafeWrapViewContro
         else {
             UIImage *backImg = [[UIImage imageNamed:@"general_back" inBundle:SWIFTPM_MODULE_BUNDLE compatibleWithTraitCollection:nil] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
             
-            UIColor *tintColor = [self backIndicatorColor];
+            UIColor *tintColor = [self rt_backIndicatorColor];
             if (tintColor) {
                 CGRect rect = CGRectMake(0, 0, backImg.size.width, backImg.size.height);
                 BOOL isOpq = NO;
