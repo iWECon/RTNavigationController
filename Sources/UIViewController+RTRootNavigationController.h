@@ -75,6 +75,13 @@ IB_DESIGNABLE
 /// custom back indicaotr(general_back) color
 @property (nonatomic, retain) IBInspectable UIColor * _Nullable rt_backIndicatorColor;
 
+
+/// Set navigation bar's title color
+/// @param color the color of navigation bar's
+- (void)rt_setNavigationBarTitleColor:(UIColor * _Nonnull)color;
+- (void)rt_setNavigationBarTitleFont:(UIFont * _Nonnull)font;
+- (void)rt_setNavigationBarTitleAttributes:(NSDictionary * _Nonnull)attributes;
+
 @end
 
 @interface UIPercentDrivenInteractiveTransition (Conditional)

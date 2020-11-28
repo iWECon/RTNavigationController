@@ -104,6 +104,28 @@
     objc_setAssociatedObject(self, @selector(rt_backIndicatorColor), rt_backIndicatorColor, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
+- (void)rt_setNavigationBarTitleColor:(UIColor *)color {
+    UINavigationBar *bar = [self.navigationController navigationBar];
+    NSMutableDictionary *dict = [[bar titleTextAttributes] mutableCopy];
+    dict[NSForegroundColorAttributeName] = color;
+    [bar setTitleTextAttributes:[dict copy]];
+}
+- (void)rt_setNavigationBarTitleFont:(UIFont *)font {
+    UINavigationBar *bar = [self.navigationController navigationBar];
+    NSMutableDictionary *dict = [[bar titleTextAttributes] mutableCopy];
+    dict[NSFontAttributeName] = font;
+    [bar setTitleTextAttributes:[dict copy]];
+}
+
+- (void)rt_setNavigationBarTitleAttributes:(NSDictionary *)attributes {
+    UINavigationBar *bar = [self.navigationController navigationBar];
+    NSMutableDictionary *dict = [[bar titleTextAttributes] mutableCopy];
+    for (NSString *key in attributes.allKeys) {
+        [dict setValue:attributes[key] forKey:key];
+    }
+    [bar setTitleTextAttributes:dict];
+}
+
 @end
 
 @implementation UIPercentDrivenInteractiveTransition (Conditional)
