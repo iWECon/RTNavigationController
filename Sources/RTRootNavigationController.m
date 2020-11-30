@@ -23,6 +23,7 @@
 #import "RTRootNavigationController.h"
 
 #import "UIViewController+RTRootNavigationController.h"
+#import "UIImage+TintColor.h"
 
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
@@ -669,30 +670,18 @@ __attribute((overloadable)) static inline UIViewController *RTSafeWrapViewContro
 #pragma clang diagnostic pop
         }
         else {
-            UIImage *backImg = [UIImage imageNamed:@"general_back" inBundle:SWIFTPM_MODULE_BUNDLE compatibleWithTraitCollection:nil];
+            UIImage *backImg = nil;
+            if ([viewController respondsToSelector:@selector(rt_backIndicatorImage)]) {
+                backImg = [viewController rt_backIndicatorImage];
+            }
+            if (backImg == nil) {
+                backImg = [UIImage imageNamed:@"general_back" inBundle:SWIFTPM_MODULE_BUNDLE compatibleWithTraitCollection:nil];
+            }
             
             if ([viewController respondsToSelector:@selector(rt_backIndicatorColor)]) {
                 UIColor *tintColor = [viewController rt_backIndicatorColor];
                 if (tintColor) {
-                    CGRect rect = CGRectMake(0, 0, backImg.size.width, backImg.size.height);
-                    BOOL isOpq = NO;
-                    CGImageRef imageRef = backImg.CGImage;
-                    CGImageAlphaInfo alphaInfo = CGImageGetAlphaInfo(imageRef);
-                    if (alphaInfo) {
-                        isOpq = (alphaInfo == kCGImageAlphaNoneSkipLast) || (alphaInfo == kCGImageAlphaNoneSkipFirst) || (alphaInfo == kCGImageAlphaNone);
-                    }
-                    
-                    UIGraphicsBeginImageContextWithOptions(backImg.size, isOpq, backImg.scale);
-                    CGContextRef context = UIGraphicsGetCurrentContext();
-                    CGContextTranslateCTM(context, 0, backImg.size.height);
-                    CGContextScaleCTM(context, 1.0, -1.0);
-                    CGContextSetBlendMode(context, kCGBlendModeNormal);
-                    CGContextClipToMask(context, rect, backImg.CGImage);
-                    CGContextSetFillColorWithColor(context, tintColor.CGColor);
-                    CGContextFillRect(context, rect);
-                    
-                    backImg = UIGraphicsGetImageFromCurrentImageContext();
-                    UIGraphicsEndImageContext();
+                    backImg = [backImg rt_tintColor:tintColor];
                 }
             }
             viewController.navigationItem.leftBarButtonItems = @[[[UIBarButtonItem alloc] initWithImage:[backImg imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:viewController action:@selector(dismiss)]];
@@ -1008,11 +997,13 @@ __attribute((overloadable)) static inline UIViewController *RTSafeWrapViewContro
     viewController = RTSafeUnwrapViewController(viewController);
     if (!isRootVC && viewController.isViewLoaded) {
         
-//        BOOL hasSetLeftItem = viewController.navigationItem.leftBarButtonItem != nil;
-//        if (hasSetLeftItem && !viewController.rt_hasSetInteractivePop) {
-//            viewController.rt_disableInteractivePop = YES;
-//        }
-//        else
+        /* // 存在 leftBarButtonItem 时，禁止左滑返回手势 (这个需求不需要自动判断，由具体业务逻辑手动设置 rt_hasSetInteractivePop 即可)
+        BOOL hasSetLeftItem = viewController.navigationItem.leftBarButtonItem != nil;
+        if (hasSetLeftItem && !viewController.rt_hasSetInteractivePop) {
+            viewController.rt_disableInteractivePop = YES;
+        }
+        else
+         */
         if (!viewController.rt_hasSetInteractivePop) {
             viewController.rt_disableInteractivePop = NO;
         }

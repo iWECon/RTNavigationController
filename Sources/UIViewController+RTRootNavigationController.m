@@ -97,6 +97,13 @@
     }
 }
 
+- (UIImage *)rt_backIndicatorImage {
+    return (UIImage *)objc_getAssociatedObject(self, @selector(rt_backIndicatorImage));
+}
+- (void)setRt_backIndicatorImage:(UIImage *)rt_backIndicatorImage {
+    objc_setAssociatedObject(self, @selector(rt_backIndicatorImage), rt_backIndicatorImage, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
 - (UIColor *)rt_backIndicatorColor {
     return (UIColor *)objc_getAssociatedObject(self, @selector(rt_backIndicatorColor));
 }
@@ -127,6 +134,9 @@
 }
 - (void)rt_setNavigationBarBackgroundColor:(UIColor *)color {
     [self.navigationController.navigationBar setBarTintColor:color];
+}
+- (void)rt_setNavigationBarHidden:(BOOL)isHidden animated:(BOOL)isAnimated {
+    [self.navigationController setNavigationBarHidden:isHidden animated:isAnimated];
 }
 
 @end

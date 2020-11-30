@@ -71,6 +71,8 @@ IB_DESIGNABLE
 
 - (void)dismissWithCompletion:( void (^ _Nullable)(void))completion animated:(BOOL)animated;
 
+/// replace the back indicator image
+@property (nonatomic, retain) IBInspectable UIImage * _Nullable rt_backIndicatorImage;
 
 /// custom back indicaotr(general_back) color
 @property (nonatomic, retain) IBInspectable UIColor * _Nullable rt_backIndicatorColor;
@@ -81,6 +83,7 @@ IB_DESIGNABLE
 - (void)rt_setNavigationBarTitleFont:(UIFont * _Nonnull)font NS_SWIFT_NAME(rt_setNavigationBar(titleFont:));
 - (void)rt_setNavigationBarTitleAttributes:(NSDictionary * _Nonnull)attributes NS_SWIFT_NAME(rt_setNavigationBar(titleAttributes:));
 - (void)rt_setNavigationBarBackgroundColor:(UIColor * _Nonnull)color NS_SWIFT_NAME(rt_setNavigationBar(backgroundColor:));
+- (void)rt_setNavigationBarHidden:(BOOL)isHidden animated:(BOOL)isAnimated NS_SWIFT_NAME(rt_setNavigationBar(hidden:animated:));
 
 @end
 
