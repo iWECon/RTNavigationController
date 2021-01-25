@@ -11,9 +11,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface RTNavigationBar : UINavigationBar
 
-@property (nonatomic, retain) UIView *titleView;
-
-- (void)removeBottomLine;
 
 @end
 

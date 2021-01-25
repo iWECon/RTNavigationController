@@ -7,35 +7,27 @@
 
 #import "RTNavigationBar.h"
 
+@interface RTNavigationBar ()
+
+@property (nonatomic, retain) UIColor *rt_barTintColor;
+
+@end
+
 @implementation RTNavigationBar
 
-- (void)removeBottomLine {
-    self.shadowImage = [UIImage new];
-    
-    if ([[[UIDevice currentDevice] systemVersion] floatValue] < 11) {
-        @try {
-            for (UIView *view in self.subviews) {
-                Class clazz = NSClassFromString(@"_UIBarBackground");
-                if (clazz && [view isKindOfClass:clazz]) {
-                    for (UIView *obj in view.subviews) {
-                        if ([obj isKindOfClass:[UIImageView class]]) {
-                            [obj setHidden:YES];
-                        }
-                    }
-                }
-            }
-        } @catch (NSException *exception) {
-            NSLog(@"catch error: \(%@)", exception);
-        } @finally {
-            
-        }
+- (void)setBarTintColor:(UIColor *)barTintColor {
+    if (self.rt_barTintColor != barTintColor) {
+        self.rt_barTintColor = barTintColor;
     }
+    [super setBarTintColor:barTintColor];
 }
 
-- (void)setTitleView:(UIView *)titleView {
-    _titleView = titleView;
-    if ([self.nextResponder isKindOfClass:[UIViewController class]]) {
-        [[(UIViewController *)self.nextResponder navigationItem] setTitleView:titleView];
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    
+    // reload bar tint color
+    if (self.rt_barTintColor) {
+        [self setBarTintColor:self.rt_barTintColor];
     }
 }
 

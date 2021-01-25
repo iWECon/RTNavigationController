@@ -68,9 +68,6 @@ IB_DESIGNABLE
  */
 - (Class _Nullable)rt_navigationBarClass;
 
-/// Nullable
-- (RTNavigationBar * _Nullable)rt_navigationBar;
-
 - (void)dismiss;
 
 - (void)dismissWithCompletion:( void (^ _Nullable)(void))completion animated:(BOOL)animated;
@@ -92,6 +89,9 @@ IB_DESIGNABLE
 - (void)rt_setNavigationBarBackgroundColor:(UIColor * _Nonnull)color NS_SWIFT_NAME(rt_setNavigationBar(backgroundColor:));
 
 - (void)rt_setNavigationBarHidden:(BOOL)isHidden animated:(BOOL)isAnimated NS_SWIFT_NAME(rt_setNavigationBar(hidden:animated:));
+
+- (void)rt_removeNavigationBarBottomLine;
+- (void)rt_transparentNavigationBar;
 
 @end
 
