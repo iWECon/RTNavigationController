@@ -20,6 +20,7 @@
 
 #import <UIKit/UIKit.h>
 
+@class RTNavigationBar;
 @class RTRootNavigationController;
 
 @protocol RTNavigationItemCustomizable <NSObject>
@@ -67,6 +68,9 @@ IB_DESIGNABLE
  */
 - (Class _Nullable)rt_navigationBarClass;
 
+/// Nullable
+- (RTNavigationBar * _Nullable)rt_navigationBar;
+
 - (void)dismiss;
 
 - (void)dismissWithCompletion:( void (^ _Nullable)(void))completion animated:(BOOL)animated;
@@ -80,9 +84,13 @@ IB_DESIGNABLE
 /// Set navigation bar's title color
 /// @param color the color of navigation bar's
 - (void)rt_setNavigationBarTitleColor:(UIColor * _Nonnull)color NS_SWIFT_NAME(rt_setNavigationBar(titleColor:));
+/// Set navigation bar's title font
 - (void)rt_setNavigationBarTitleFont:(UIFont * _Nonnull)font NS_SWIFT_NAME(rt_setNavigationBar(titleFont:));
+/// Set navigation bar's title's attributes
 - (void)rt_setNavigationBarTitleAttributes:(NSDictionary * _Nonnull)attributes NS_SWIFT_NAME(rt_setNavigationBar(titleAttributes:));
+/// Set navigation bar's backgroundColor
 - (void)rt_setNavigationBarBackgroundColor:(UIColor * _Nonnull)color NS_SWIFT_NAME(rt_setNavigationBar(backgroundColor:));
+
 - (void)rt_setNavigationBarHidden:(BOOL)isHidden animated:(BOOL)isAnimated NS_SWIFT_NAME(rt_setNavigationBar(hidden:animated:));
 
 @end

@@ -22,6 +22,7 @@
 
 #import "UIViewController+RTRootNavigationController.h"
 #import "RTRootNavigationController.h"
+#import "RTNavigationBar.h"
 
 @implementation UIViewController (RTRootNavigationController)
 @dynamic rt_disableInteractivePop;
@@ -38,6 +39,13 @@
 
 - (Class)rt_navigationBarClass
 {
+    return [RTNavigationBar class];
+}
+
+- (RTNavigationBar *)rt_navigationBar {
+    if ([self.navigationController.navigationBar isKindOfClass:[RTNavigationBar class]]) {
+        return (RTNavigationBar *)self.navigationController.navigationBar;
+    }
     return nil;
 }
 
