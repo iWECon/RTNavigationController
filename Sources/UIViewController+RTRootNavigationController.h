@@ -91,7 +91,7 @@ IB_DESIGNABLE
 - (void)rt_setNavigationBarHidden:(BOOL)isHidden animated:(BOOL)isAnimated NS_SWIFT_NAME(rt_setNavigationBar(hidden:animated:));
 
 - (void)rt_removeNavigationBarBottomLine;
-- (void)rt_transparentNavigationBar;
+//- (void)rt_transparentNavigationBar;
 
 @end
 

@@ -98,6 +98,9 @@
     }
 }
 
+- (void)willPopFromNavigationStack { }
+- (void)didPopFromNavigationStack { }
+
 - (UIImage *)rt_backIndicatorImage {
     return (UIImage *)objc_getAssociatedObject(self, @selector(rt_backIndicatorImage));
 }
@@ -167,9 +170,9 @@
     }
 }
 
-- (void)rt_transparentNavigationBar {
-    
-}
+//- (void)rt_transparentNavigationBar {
+//    
+//}
 
 @end
 
