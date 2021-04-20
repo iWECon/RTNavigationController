@@ -675,7 +675,11 @@ __attribute((overloadable)) static inline UIViewController *RTSafeWrapViewContro
                 backImg = [viewController rt_backIndicatorImage];
             }
             if (backImg == nil) {
+#if SWIFT_PACKAGE
                 backImg = [UIImage imageNamed:@"general_back" inBundle:SWIFTPM_MODULE_BUNDLE compatibleWithTraitCollection:nil];
+#else
+                backImg = [UIImage imageNamed:@"general_back" inBundle: ]
+#endif
             }
             
             if ([viewController respondsToSelector:@selector(rt_backIndicatorColor)]) {

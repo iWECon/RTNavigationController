@@ -8,5 +8,5 @@
 
 #### Pod
 ```
-pod 'RTNavigationController', :git
+pod 'RTNavigationController', :git => 'https://github.com/iWECon/RTNavigationController'
 ```

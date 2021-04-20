@@ -11,6 +11,9 @@ Pod::Spec.new do |s|
     s.source_files = [
         'Sources/**/*.{h,m}',
     ]
+    s.resource_bundles = {
+        'RTNavigationController' => ["Sources/RTNavigationController/*.xcassets"]
+    }
     
     s.cocoapods_version = '>= 1.10.0'
     
