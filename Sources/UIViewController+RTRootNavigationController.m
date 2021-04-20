@@ -170,10 +170,6 @@
     }
 }
 
-//- (void)rt_transparentNavigationBar {
-//    
-//}
-
 @end
 
 @implementation UIPercentDrivenInteractiveTransition (Conditional)
