@@ -7,7 +7,7 @@ Pod::Spec.new do |s|
     s.authors = 'Pansitong iWw'
     s.ios.deployment_target = '10.0'
     s.summary = 'RTNavigationController fork from `https://github.com/rickytan/RTNavigationController`'
-    s.source = { :git => 'https://github.com/iWECon/RTNavigationController/RTNavigationController.git', :tag => s.version }
+    s.source = { :git => 'https://github.com/iWECon/RTNavigationController.git', :tag => s.version }
     s.source_files = [
         'Sources/**/*.{h,m}',
     ]
