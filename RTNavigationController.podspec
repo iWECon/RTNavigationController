@@ -9,11 +9,14 @@ Pod::Spec.new do |s|
     s.summary = 'RTNavigationController fork from `https://github.com/rickytan/RTNavigationController`'
     s.source = { :git => 'https://github.com/iWECon/RTNavigationController.git', :tag => s.version }
     s.source_files = [
-        'Sources/**/*.{h,m}',
+        'Sources/*.{h,m}',
     ]
     s.resource_bundles = {
         'RTNavigationController' => ["Sources/RTNavigationController/*.xcassets"]
     }
+    s.public_header_files = [
+        'Sources/include/*.h'
+    ]
     
     s.cocoapods_version = '>= 1.10.0'
     
