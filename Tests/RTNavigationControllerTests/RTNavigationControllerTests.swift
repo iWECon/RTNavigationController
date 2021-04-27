@@ -7,6 +7,7 @@ final class RTNavigationControllerTests: XCTestCase {
         // Use XCTAssert and related functions to verify your tests produce the correct
         // results.
 //        XCTAssertEqual(RTNavigationController().text, "Hello, World!")
+        Bundle(for: Self.self)
     }
 
     static var allTests = [
