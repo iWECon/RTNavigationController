@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
     s.name = 'RTNavigationController'
-    s.version = '5.3.1'
+    s.version = '5.3.2'
     s.license = { :type => 'MIT' }
     s.homepage = 'https://www.iwecon.cc'
     s.authors = 'Pansitong iWw'
