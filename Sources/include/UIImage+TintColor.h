@@ -1,1 +1,0 @@
-/Users/i/Documents/Github/RTNavigationController/Sources/UIImage+TintColor.h

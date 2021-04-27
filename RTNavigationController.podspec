@@ -6,7 +6,14 @@ Pod::Spec.new do |s|
     s.homepage = 'https://www.iwecon.cc'
     s.authors = 'Pansitong iWw'
     s.ios.deployment_target = '10.0'
-    s.summary = 'RTNavigationController fork from `https://github.com/rickytan/RTNavigationController`'
+    s.summary = <<-DESC
+    RTNavigationController fork from https://github.com/rickytan/RTNavigationController
+    
+    More and more apps use custom navigation bar for each different view controller, instead of one common, gloabal navigation bar.
+    This project just help develops to solve this problem in a tricky way, develops use this navigation controller in a farmilar way just like you used to be, and
+    you can have each view controller a individual navigation bar.
+    DESC
+    
     s.source = { :git => 'https://github.com/iWECon/RTNavigationController.git', :tag => s.version }
     s.source_files = [
         'Sources/*.{h,m}',
@@ -19,6 +26,7 @@ Pod::Spec.new do |s|
     ]
     
     s.cocoapods_version = '>= 1.10.0'
+    s.frameworks = 'UIKit', 'Foundation'
     
     # dependencies
     s.dependency 'DZNEmptyDataSet'
