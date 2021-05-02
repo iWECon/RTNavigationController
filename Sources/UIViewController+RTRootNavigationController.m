@@ -143,31 +143,29 @@
     [self.navigationController setNavigationBarHidden:isHidden animated:isAnimated];
 }
 
+- (void)rt_transparentNavigationBar {
+    if (!self.navigationController || !self.navigationController.navigationBar || self.navigationController.navigationBar.isHidden) {
+        return;
+    }
+    
+    if ([self.navigationController.navigationBar isKindOfClass:[RTNavigationBar class]]) {
+        [(RTNavigationBar *)self.navigationController.navigationBar setTransparentBar:YES];
+        return;
+    }
+    
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
+}
+
 - (void)rt_removeNavigationBarBottomLine {
     if (!self.navigationController || !self.navigationController.navigationBar || self.navigationController.navigationBar.isHidden) {
         return;
     }
     
-    self.navigationController.navigationBar.shadowImage = [UIImage new];
-    
-    if ([[[UIDevice currentDevice] systemVersion] floatValue] < 11) {
-        @try {
-            for (UIView *view in self.navigationController.navigationBar.subviews) {
-                Class clazz = NSClassFromString(@"_UIBarBackground");
-                if (clazz && [view isKindOfClass:clazz]) {
-                    for (UIView *obj in view.subviews) {
-                        if ([obj isKindOfClass:[UIImageView class]]) {
-                            [obj setHidden:YES];
-                        }
-                    }
-                }
-            }
-        } @catch (NSException *exception) {
-            NSLog(@"catch error: \(%@)", exception);
-        } @finally {
-            
-        }
+    if ([self.navigationController.navigationBar isKindOfClass:[RTNavigationBar class]]) {
+        [(RTNavigationBar *)self.navigationController.navigationBar setRemoveBottomLine:YES];
+        return;
     }
+    [self.navigationController.navigationBar setShadowImage:[UIImage new]];
 }
 
 @end

@@ -11,6 +11,10 @@
 
 @property (nonatomic, retain) UIColor *rt_barTintColor;
 
+@property (nonatomic, assign) BOOL rt_transparentBar;
+
+@property (nonatomic, assign) BOOL rt_removeBottomLine;
+
 @end
 
 @implementation RTNavigationBar
@@ -22,6 +26,20 @@
     [super setBarTintColor:barTintColor];
 }
 
+- (void)setTransparentBar:(BOOL)transparentBar {
+    self.rt_transparentBar = transparentBar;
+}
+- (BOOL)isTransparentBar {
+    return self.rt_transparentBar;
+}
+
+- (void)setRemoveBottomLine:(BOOL)removeBottomLine {
+    self.rt_removeBottomLine = removeBottomLine;
+}
+- (BOOL)isRemoveBottomLine {
+    return self.rt_removeBottomLine;
+}
+
 - (void)layoutSubviews {
     [super layoutSubviews];
     
@@ -29,6 +47,32 @@
     if (self.rt_barTintColor) {
         [self setBarTintColor:self.rt_barTintColor];
     }
+    if (self.rt_transparentBar) {
+        [self __transparentBarAction];
+    } else {
+        [self setBackgroundImage:nil forBarMetrics:UIBarMetricsDefault];
+    }
+    
+    if (self.removeBottomLine) {
+        [self __removeBottomLineAction];
+    } else {
+        [self setShadowImage:nil];
+    }
+}
+
+- (void)__transparentBarAction {
+    [self setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
+    for (UIView *v in self.subviews) {
+        if ([v isKindOfClass:NSClassFromString(@"_UIBarBackground")]) {
+            v.alpha = 0;
+            v.hidden = YES;
+            break;
+        }
+    }
+}
+
+- (void)__removeBottomLineAction {
+    [self setShadowImage:[UIImage new]];
 }
 
 @end

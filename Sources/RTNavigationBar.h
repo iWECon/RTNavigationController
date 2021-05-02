@@ -11,6 +11,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface RTNavigationBar : UINavigationBar
 
+@property (nonatomic, assign, getter=isTransparentBar) BOOL transparentBar;
+
+@property (nonatomic, assign, getter=isRemoveBottomLine) BOOL removeBottomLine;
 
 @end
 
