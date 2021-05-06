@@ -15,9 +15,22 @@
 
 @property (nonatomic, assign) BOOL rt_removeBottomLine;
 
+@property (nonatomic, retain) UIImage *rt_backgroundImage;
+@property (nonatomic, retain) UIImage *rt_shadowImage;
+
 @end
 
 @implementation RTNavigationBar
+
+- (void)setBackgroundImage:(UIImage *)backgroundImage forBarMetrics:(UIBarMetrics)barMetrics {
+    [super setBackgroundImage:backgroundImage forBarMetrics:barMetrics];
+    self.rt_backgroundImage = backgroundImage;
+}
+
+- (void)setShadowImage:(UIImage *)shadowImage {
+    [super setShadowImage:shadowImage];
+    self.rt_shadowImage = shadowImage;
+}
 
 - (void)setBarTintColor:(UIColor *)barTintColor {
     if (self.rt_barTintColor != barTintColor) {
@@ -47,13 +60,13 @@
     if (self.rt_barTintColor) {
         [self setBarTintColor:self.rt_barTintColor];
     }
-    if (self.rt_transparentBar) {
+    if (self.rt_transparentBar || (self.rt_backgroundImage && [self.rt_backgroundImage CGImage] == nil)) {
         [self __transparentBarAction];
     } else {
         [self setBackgroundImage:nil forBarMetrics:UIBarMetricsDefault];
     }
     
-    if (self.removeBottomLine) {
+    if (self.removeBottomLine || (self.rt_shadowImage && [self.rt_shadowImage CGImage] == nil)) {
         [self __removeBottomLineAction];
     } else {
         [self setShadowImage:nil];
