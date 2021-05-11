@@ -68,6 +68,8 @@ IB_DESIGNABLE
  */
 - (Class _Nullable)rt_navigationBarClass;
 
+- (RTNavigationBar * _Nullable)rt_navigationBar;
+
 - (void)dismiss;
 
 - (void)dismissWithCompletion:( void (^ _Nullable)(void))completion animated:(BOOL)animated;

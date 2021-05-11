@@ -42,6 +42,14 @@
     return [RTNavigationBar class];
 }
 
+- (RTNavigationBar *)rt_navigationBar
+{
+    if (self.navigationController && [self.navigationController.navigationBar isKindOfClass:[RTNavigationBar class]]) {
+        return (RTNavigationBar *)self.navigationController.navigationBar;
+    }
+    return nil;
+}
+
 - (RTRootNavigationController *)rt_navigationController
 {
     UIViewController *vc = self;
