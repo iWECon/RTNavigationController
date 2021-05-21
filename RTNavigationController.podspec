@@ -27,13 +27,4 @@ Pod::Spec.new do |s|
     
     s.cocoapods_version = '>= 1.10.0'
     s.frameworks = 'UIKit', 'Foundation'
-    
-    # dependencies
-    s.dependency 'DZNEmptyDataSet'
-    s.dependency 'MultiScrollContainer'
-    s.dependency 'Pager'
-    s.dependency 'ReactiveCocoa'
-    s.dependency 'ReactiveSwift'
-    s.dependency 'SegmentedController'
-    
 end
