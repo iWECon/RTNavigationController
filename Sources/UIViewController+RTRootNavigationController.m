@@ -227,6 +227,11 @@
 }
 
 - (void)rt_transparentNavigationBar {
+    if (@available(iOS 13.0, *)) {
+        [self standardAppearance].backgroundColor = [UIColor clearColor];
+        [self scrollEdgeAppearance].backgroundColor = [UIColor clearColor];
+    }
+    
     if (!self.navigationController || !self.navigationController.navigationBar || self.navigationController.navigationBar.isHidden) {
         return;
     }
@@ -243,17 +248,16 @@
     if (@available(iOS 13.0, *)) {
         [self standardAppearance].shadowImage = [UIImage new];
         [self scrollEdgeAppearance].shadowImage = [UIImage new];
-    } else {
-        if (!self.navigationController || !self.navigationController.navigationBar || self.navigationController.navigationBar.isHidden) {
-            return;
-        }
-        
-        if ([self.navigationController.navigationBar isKindOfClass:[RTNavigationBar class]]) {
-            [(RTNavigationBar *)self.navigationController.navigationBar setRemoveBottomLine:YES];
-            return;
-        }
-        [self.navigationController.navigationBar setShadowImage:[UIImage new]];
     }
+    
+    if (!self.navigationController || !self.navigationController.navigationBar || self.navigationController.navigationBar.isHidden) {
+        return;
+    }
+    if ([self.navigationController.navigationBar isKindOfClass:[RTNavigationBar class]]) {
+        [(RTNavigationBar *)self.navigationController.navigationBar setRemoveBottomLine:YES];
+        return;
+    }
+    [self.navigationController.navigationBar setShadowImage:[UIImage new]];
 }
 
 @end

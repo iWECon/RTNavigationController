@@ -199,6 +199,7 @@ __attribute((overloadable)) static inline UIViewController *RTSafeWrapViewContro
                 UINavigationBarAppearance *appearance = [UINavigationBarAppearance new];
                 [appearance configureWithDefaultBackground];
                 [appearance setBackgroundColor:[UIColor whiteColor]];
+                [appearance setShadowImage:[UIImage new]];
                 self.navigationController.navigationBar.standardAppearance = appearance;
             }
             self.containerNavigationController.navigationBar.standardAppearance.backgroundColor = [UIColor whiteColor];
