@@ -193,6 +193,21 @@ __attribute((overloadable)) static inline UIViewController *RTSafeWrapViewContro
         self.contentViewController = controller;
         self.containerNavigationController = [[RTContainerNavigationController alloc] initWithNavigationBarClass:navigationBarClass
                                                                                                     toolbarClass:nil];
+        
+        if (@available(iOS 13.0, *)) {
+            if (!self.containerNavigationController.navigationBar.standardAppearance) {
+                UINavigationBarAppearance *appearance = [UINavigationBarAppearance new];
+                [appearance setBackgroundColor:[UIColor whiteColor]];
+                self.navigationController.navigationBar.standardAppearance = appearance;
+            }
+            
+            if (!self.containerNavigationController.navigationBar.scrollEdgeAppearance) {
+                UINavigationBarAppearance *appearance = [UINavigationBarAppearance new];
+                [appearance setBackgroundColor:[UIColor whiteColor]];
+                self.navigationController.navigationBar.standardAppearance = appearance;
+            }
+        }
+        
         if (yesOrNo) {
             UIViewController *vc = [UIViewController new];
             vc.title = backTitle;
@@ -262,20 +277,6 @@ __attribute((overloadable)) static inline UIViewController *RTSafeWrapViewContro
         self.contentViewController.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         self.contentViewController.view.frame = self.view.bounds;
         [self.view addSubview:self.contentViewController.view];
-    }
-    
-    if (@available(iOS 13.0, *)) {
-        if (!self.navigationController.navigationBar.standardAppearance) {
-            UINavigationBarAppearance *appearance = [UINavigationBarAppearance new];
-            [appearance setBackgroundColor:[UIColor whiteColor]];
-            self.navigationController.navigationBar.standardAppearance = appearance;
-        }
-        
-        if (!self.navigationController.navigationBar.scrollEdgeAppearance) {
-            UINavigationBarAppearance *appearance = [UINavigationBarAppearance new];
-            [appearance setBackgroundColor:[UIColor whiteColor]];
-            self.navigationController.navigationBar.standardAppearance = appearance;
-        }
     }
 }
 
@@ -452,20 +453,6 @@ __attribute((overloadable)) static inline UIViewController *RTSafeWrapViewContro
         self.navigationBar.shadowImage = shadowImage;
         self.navigationBar.translucent = NO;
         self.view.backgroundColor = [UIColor whiteColor];
-    }
-    
-    if (@available(iOS 13.0, *)) {
-        if (!self.navigationController.navigationBar.standardAppearance) {
-            UINavigationBarAppearance *appearance = [UINavigationBarAppearance new];
-            [appearance setBackgroundColor:[UIColor whiteColor]];
-            self.navigationController.navigationBar.standardAppearance = appearance;
-        }
-        
-        if (!self.navigationController.navigationBar.scrollEdgeAppearance) {
-            UINavigationBarAppearance *appearance = [UINavigationBarAppearance new];
-            [appearance setBackgroundColor:[UIColor whiteColor]];
-            self.navigationController.navigationBar.standardAppearance = appearance;
-        }
     }
 }
 
@@ -778,20 +765,6 @@ __attribute((overloadable)) static inline UIViewController *RTSafeWrapViewContro
     [super setDelegate:self];
     [super setNavigationBarHidden:YES
                          animated:NO];
-    
-    if (@available(iOS 13.0, *)) {
-        if (!self.navigationController.navigationBar.standardAppearance) {
-            UINavigationBarAppearance *appearance = [UINavigationBarAppearance new];
-            [appearance setBackgroundColor:[UIColor whiteColor]];
-            self.navigationController.navigationBar.standardAppearance = appearance;
-        }
-        
-        if (!self.navigationController.navigationBar.scrollEdgeAppearance) {
-            UINavigationBarAppearance *appearance = [UINavigationBarAppearance new];
-            [appearance setBackgroundColor:[UIColor whiteColor]];
-            self.navigationController.navigationBar.standardAppearance = appearance;
-        }
-    }
 }
 
 - (UIViewController *)viewControllerForUnwindSegueAction:(SEL)action
