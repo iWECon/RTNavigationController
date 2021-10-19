@@ -123,29 +123,104 @@
     objc_setAssociatedObject(self, @selector(rt_backIndicatorColor), rt_backIndicatorColor, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
+
+- (UINavigationBarAppearance *)standardAppearance API_AVAILABLE(ios(13.0)) {
+    UINavigationBarAppearance *appearance = self.navigationController.navigationBar.standardAppearance;
+    if (!appearance) {
+        appearance = [UINavigationBarAppearance new];
+        [appearance configureWithDefaultBackground];
+        self.navigationController.navigationBar.standardAppearance = appearance;
+    }
+    return appearance;
+}
+
+- (UINavigationBarAppearance *)scrollEdgeAppearance API_AVAILABLE(ios(13.0)) {
+    UINavigationBarAppearance *appearance = self.navigationController.navigationBar.scrollEdgeAppearance;
+    if (!appearance) {
+        appearance = [UINavigationBarAppearance new];
+        [appearance configureWithDefaultBackground];
+        self.navigationController.navigationBar.scrollEdgeAppearance = appearance;
+    }
+    return appearance;
+}
+
+//- (UINavigationBarAppearance *)compactScrollEdgeAppearance API_AVAILABLE(ios(15.0)) {
+//    UINavigationBarAppearance *appearance = self.navigationController.navigationBar.compactScrollEdgeAppearance;
+//    if (!appearance) {
+//        appearance = [UINavigationBarAppearance new];
+//        [appearance configureWithDefaultBackground];
+//    }
+//    return appearance;
+//}
+
 - (void)rt_setNavigationBarTitleColor:(UIColor *)color {
-    UINavigationBar *bar = [self.navigationController navigationBar];
-    NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithDictionary:[bar titleTextAttributes]];
-    dict[NSForegroundColorAttributeName] = color;
-    [bar setTitleTextAttributes:[dict copy]];
+    if (@available(iOS 13.0, *)) {
+        NSMutableDictionary *standardDict = [NSMutableDictionary dictionaryWithDictionary:[self standardAppearance].titleTextAttributes];
+        standardDict[NSForegroundColorAttributeName] = color;
+        [self standardAppearance].titleTextAttributes = standardDict;
+        
+        NSMutableDictionary *scrollEdgeDict = [NSMutableDictionary dictionaryWithDictionary:[self scrollEdgeAppearance].titleTextAttributes];
+        scrollEdgeDict[NSForegroundColorAttributeName] = color;
+        [self scrollEdgeAppearance].titleTextAttributes = scrollEdgeDict;
+        
+//        NSMutableDictionary *compactScrollEdgeDict = [NSMutableDictionary dictionaryWithDictionary:[self compactScrollEdgeAppearance].titleTextAttributes];
+//        compactScrollEdgeDict[NSForegroundColorAttributeName] = color;
+//        [self compactScrollEdgeAppearance].titleTextAttributes = compactScrollEdgeDict;
+    } else {
+        UINavigationBar *bar = [self.navigationController navigationBar];
+        NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithDictionary:[bar titleTextAttributes]];
+        dict[NSForegroundColorAttributeName] = color;
+        [bar setTitleTextAttributes:[dict copy]];
+    }
 }
 - (void)rt_setNavigationBarTitleFont:(UIFont *)font {
-    UINavigationBar *bar = [self.navigationController navigationBar];
-    NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithDictionary:[bar titleTextAttributes]];
-    dict[NSFontAttributeName] = font;
-    [bar setTitleTextAttributes:[dict copy]];
+    if (@available(iOS 13.0, *)) {
+        NSMutableDictionary *standardDict = [NSMutableDictionary dictionaryWithDictionary:[self standardAppearance].titleTextAttributes];
+        standardDict[NSFontAttributeName] = font;
+        [self standardAppearance].titleTextAttributes = [standardDict copy];
+        
+        NSMutableDictionary *scrollEdgeDict = [NSMutableDictionary dictionaryWithDictionary:[self scrollEdgeAppearance].titleTextAttributes];
+        scrollEdgeDict[NSFontAttributeName] = font;
+        [self scrollEdgeAppearance].titleTextAttributes = [scrollEdgeDict copy];
+        
+//        NSMutableDictionary *compactScrollEdgeDict = [NSMutableDictionary dictionaryWithDictionary:[self compactScrollEdgeAppearance].titleTextAttributes];
+//        compactScrollEdgeDict[NSFontAttributeName] = font;
+//        [self compactScrollEdgeAppearance].titleTextAttributes = [compactScrollEdgeDict copy];
+        
+    } else {
+        UINavigationBar *bar = [self.navigationController navigationBar];
+        NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithDictionary:[bar titleTextAttributes]];
+        dict[NSFontAttributeName] = font;
+        [bar setTitleTextAttributes:[dict copy]];
+    }
 }
 
 - (void)rt_setNavigationBarTitleAttributes:(NSDictionary *)attributes {
-    UINavigationBar *bar = [self.navigationController navigationBar];
-    NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithDictionary:[bar titleTextAttributes]];
-    for (NSString *key in attributes.allKeys) {
-        [dict setValue:attributes[key] forKey:key];
+    if (@available(iOS 13.0, *)) {
+        NSMutableDictionary *standardDict = [NSMutableDictionary dictionaryWithDictionary:[self standardAppearance].titleTextAttributes];
+        NSMutableDictionary *scrollEdgeDict = [NSMutableDictionary dictionaryWithDictionary:[self scrollEdgeAppearance].titleTextAttributes];
+        for (NSString *key in attributes) {
+            [standardDict setValue:attributes[key] forKey:key];
+            [scrollEdgeDict setValue:attributes[key] forKey:key];
+        }
+        [self standardAppearance].titleTextAttributes = [standardDict copy];
+        [self scrollEdgeAppearance].titleTextAttributes = [scrollEdgeDict copy];
+    } else {
+        UINavigationBar *bar = [self.navigationController navigationBar];
+        NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithDictionary:[bar titleTextAttributes]];
+        for (NSString *key in attributes.allKeys) {
+            [dict setValue:attributes[key] forKey:key];
+        }
+        [bar setTitleTextAttributes:[dict copy]];
     }
-    [bar setTitleTextAttributes:dict];
 }
 - (void)rt_setNavigationBarBackgroundColor:(UIColor *)color {
-    [self.navigationController.navigationBar setBarTintColor:color];
+    if (@available(iOS 13.0, *)) {
+        [self standardAppearance].backgroundColor = color;
+        [self scrollEdgeAppearance].backgroundColor = color;
+    } else {
+        [self.navigationController.navigationBar setBarTintColor:color];
+    }
 }
 - (void)rt_setNavigationBarHidden:(BOOL)isHidden animated:(BOOL)isAnimated {
     [self.navigationController setNavigationBarHidden:isHidden animated:isAnimated];
@@ -165,15 +240,20 @@
 }
 
 - (void)rt_removeNavigationBarBottomLine {
-    if (!self.navigationController || !self.navigationController.navigationBar || self.navigationController.navigationBar.isHidden) {
-        return;
+    if (@available(iOS 13.0, *)) {
+        [self standardAppearance].shadowImage = [UIImage new];
+        [self scrollEdgeAppearance].shadowImage = [UIImage new];
+    } else {
+        if (!self.navigationController || !self.navigationController.navigationBar || self.navigationController.navigationBar.isHidden) {
+            return;
+        }
+        
+        if ([self.navigationController.navigationBar isKindOfClass:[RTNavigationBar class]]) {
+            [(RTNavigationBar *)self.navigationController.navigationBar setRemoveBottomLine:YES];
+            return;
+        }
+        [self.navigationController.navigationBar setShadowImage:[UIImage new]];
     }
-    
-    if ([self.navigationController.navigationBar isKindOfClass:[RTNavigationBar class]]) {
-        [(RTNavigationBar *)self.navigationController.navigationBar setRemoveBottomLine:YES];
-        return;
-    }
-    [self.navigationController.navigationBar setShadowImage:[UIImage new]];
 }
 
 @end
