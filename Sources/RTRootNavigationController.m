@@ -263,6 +263,18 @@ __attribute((overloadable)) static inline UIViewController *RTSafeWrapViewContro
         self.contentViewController.view.frame = self.view.bounds;
         [self.view addSubview:self.contentViewController.view];
     }
+    
+    if (!self.navigationController.navigationBar.standardAppearance) {
+        UINavigationBarAppearance *appearance = [UINavigationBarAppearance new];
+        [appearance setBackgroundColor:[UIColor whiteColor]];
+        self.navigationController.navigationBar.standardAppearance = appearance;
+    }
+    
+    if (!self.navigationController.navigationBar.scrollEdgeAppearance) {
+        UINavigationBarAppearance *appearance = [UINavigationBarAppearance new];
+        [appearance setBackgroundColor:[UIColor whiteColor]];
+        self.navigationController.navigationBar.standardAppearance = appearance;
+    }
 }
 
 - (void)viewDidLayoutSubviews
