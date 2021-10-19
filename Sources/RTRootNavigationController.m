@@ -197,14 +197,17 @@ __attribute((overloadable)) static inline UIViewController *RTSafeWrapViewContro
         if (@available(iOS 13.0, *)) {
             if (!self.containerNavigationController.navigationBar.standardAppearance) {
                 UINavigationBarAppearance *appearance = [UINavigationBarAppearance new];
+                [appearance configureWithDefaultBackground];
                 [appearance setBackgroundColor:[UIColor whiteColor]];
                 self.navigationController.navigationBar.standardAppearance = appearance;
             }
+            self.navigationController.navigationBar.standardAppearance.backgroundColor = [UIColor whiteColor];
             
             if (!self.containerNavigationController.navigationBar.scrollEdgeAppearance) {
                 UINavigationBarAppearance *appearance = [UINavigationBarAppearance new];
+                [appearance configureWithDefaultBackground];
                 [appearance setBackgroundColor:[UIColor whiteColor]];
-                self.navigationController.navigationBar.standardAppearance = appearance;
+                self.navigationController.navigationBar.scrollEdgeAppearance = appearance;
             }
         }
         
