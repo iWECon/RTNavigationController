@@ -201,13 +201,13 @@ __attribute((overloadable)) static inline UIViewController *RTSafeWrapViewContro
                 [appearance setBackgroundColor:[UIColor whiteColor]];
                 self.navigationController.navigationBar.standardAppearance = appearance;
             }
-            self.navigationController.navigationBar.standardAppearance.backgroundColor = [UIColor whiteColor];
+            self.containerNavigationController.navigationBar.standardAppearance.backgroundColor = [UIColor whiteColor];
             
             if (!self.containerNavigationController.navigationBar.scrollEdgeAppearance) {
                 UINavigationBarAppearance *appearance = [UINavigationBarAppearance new];
                 [appearance configureWithDefaultBackground];
                 [appearance setBackgroundColor:[UIColor whiteColor]];
-                self.navigationController.navigationBar.scrollEdgeAppearance = appearance;
+                self.containerNavigationController.navigationBar.scrollEdgeAppearance = appearance;
             }
         }
         
