@@ -244,18 +244,22 @@
     [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
 }
 
+- (UIImage *)shadowImageWithTransparent {
+    UIImage *shadowImage;
+#if SWIFT_PACKAGE
+    shadowImage = [UIImage imageNamed:@"shadow_image_transparent" inBundle:RTNavigationController_RTNavigationController_SWIFTPM_MODULE_BUNDLE() compatibleWithTraitCollection:nil];
+#else
+    NSString *bundlePath = [[NSBundle bundleForClass:[self class]].resourcePath stringByAppendingPathComponent:@"RTNavigationController.bundle"];
+    NSBundle *bundle = [NSBundle bundleWithPath:bundlePath];
+    shadowImage = [UIImage imageNamed:@"shadow_image_transparent" inBundle:bundle compatibleWithTraitCollection:nil];
+#endif
+    return shadowImage;
+}
+
 - (void)rt_removeNavigationBarBottomLine {
     if (@available(iOS 13.0, *)) {
-        UIImage *shadowImage;
-#if SWIFT_PACKAGE
-        shadowImage = [UIImage imageNamed:@"shadow_image_transparent" inBundle:RTNavigationController_RTNavigationController_SWIFTPM_MODULE_BUNDLE() compatibleWithTraitCollection:nil];
-#else
-        NSString *bundlePath = [[NSBundle bundleForClass:[self class]].resourcePath stringByAppendingPathComponent:@"RTNavigationController.bundle"];
-        NSBundle *bundle = [NSBundle bundleWithPath:bundlePath];
-        shadowImage = [UIImage imageNamed:@"shadow_image_transparent" inBundle:bundle compatibleWithTraitCollection:nil];
-#endif
-        [self standardAppearance].shadowImage = [shadowImage mutableCopy];
-        [self scrollEdgeAppearance].shadowImage = [shadowImage mutableCopy];
+        [self standardAppearance].shadowImage = [self shadowImageWithTransparent];
+        [self scrollEdgeAppearance].shadowImage = [self shadowImageWithTransparent];
     } else {
         if (!self.navigationController || !self.navigationController.navigationBar || self.navigationController.navigationBar.isHidden) {
             return;
