@@ -276,7 +276,7 @@
     if (!backButton) {
         return;
     }
-    UIImage *backImage = [backButton currentImage];
+    UIImage *backImage = [backButton imageForState:UIControlStateNormal];
     if (!backImage) {
         return;
     }
