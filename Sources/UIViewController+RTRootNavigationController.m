@@ -245,28 +245,27 @@
 }
 
 - (void)rt_removeNavigationBarBottomLine {
-    UIImage *shadowImage;
-#if SWIFT_PACKAGE
-    shadowImage = [UIImage imageNamed:@"shadow-image-transparent" inBundle:RTNavigationController_RTNavigationController_SWIFTPM_MODULE_BUNDLE() compatibleWithTraitCollection:nil];
-#else
-    NSString *bundlePath = [[NSBundle bundleForClass:[self class]].resourcePath stringByAppendingPathComponent:@"RTNavigationController.bundle"];
-    NSBundle *bundle = [NSBundle bundleWithPath:bundlePath];
-    shadowImage = [UIImage imageNamed:@"shadow-image-transparent" inBundle:bundle compatibleWithTraitCollection:nil];
-#endif
-    
     if (@available(iOS 13.0, *)) {
+        UIImage *shadowImage;
+#if SWIFT_PACKAGE
+        shadowImage = [UIImage imageNamed:@"shadow_image_transparent" inBundle:RTNavigationController_RTNavigationController_SWIFTPM_MODULE_BUNDLE() compatibleWithTraitCollection:nil];
+#else
+        NSString *bundlePath = [[NSBundle bundleForClass:[self class]].resourcePath stringByAppendingPathComponent:@"RTNavigationController.bundle"];
+        NSBundle *bundle = [NSBundle bundleWithPath:bundlePath];
+        shadowImage = [UIImage imageNamed:@"shadow_image_transparent" inBundle:bundle compatibleWithTraitCollection:nil];
+#endif
         [self standardAppearance].shadowImage = [shadowImage mutableCopy];
         [self scrollEdgeAppearance].shadowImage = [shadowImage mutableCopy];
+    } else {
+        if (!self.navigationController || !self.navigationController.navigationBar || self.navigationController.navigationBar.isHidden) {
+            return;
+        }
+        if ([self.navigationController.navigationBar isKindOfClass:[RTNavigationBar class]]) {
+            [(RTNavigationBar *)self.navigationController.navigationBar setRemoveBottomLine:YES];
+            return;
+        }
+        [self.navigationController.navigationBar setShadowImage:[UIImage new]];
     }
-    
-    if (!self.navigationController || !self.navigationController.navigationBar || self.navigationController.navigationBar.isHidden) {
-        return;
-    }
-    if ([self.navigationController.navigationBar isKindOfClass:[RTNavigationBar class]]) {
-        [(RTNavigationBar *)self.navigationController.navigationBar setRemoveBottomLine:YES];
-        return;
-    }
-    [self.navigationController.navigationBar setShadowImage:[shadowImage mutableCopy]];
 }
 
 @end
