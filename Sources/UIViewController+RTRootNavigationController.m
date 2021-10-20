@@ -272,7 +272,7 @@
 }
 
 - (void)rt_setNavigationBarBackIndicatorColor:(UIColor *)color {
-    UIButton *backButton = (UIButton *)self.navigationItem.leftBarButtonItem.customView;
+    UIButton *backButton = (UIButton *)self.navigationItem.leftBarButtonItem.customView.subviews.lastObject;
     if (!backButton) {
         return;
     }
