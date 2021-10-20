@@ -255,8 +255,8 @@
 #endif
     
     if (@available(iOS 13.0, *)) {
-        [self standardAppearance].shadowImage = shadowImage;
-        [self scrollEdgeAppearance].shadowImage = shadowImage;
+        [self standardAppearance].shadowImage = [shadowImage mutableCopy];
+        [self scrollEdgeAppearance].shadowImage = [shadowImage mutableCopy];
     }
     
     if (!self.navigationController || !self.navigationController.navigationBar || self.navigationController.navigationBar.isHidden) {
@@ -266,7 +266,7 @@
         [(RTNavigationBar *)self.navigationController.navigationBar setRemoveBottomLine:YES];
         return;
     }
-    [self.navigationController.navigationBar setShadowImage:shadowImage];
+    [self.navigationController.navigationBar setShadowImage:[shadowImage mutableCopy]];
 }
 
 @end
