@@ -92,6 +92,9 @@ IB_DESIGNABLE
 
 - (void)rt_setNavigationBarHidden:(BOOL)isHidden animated:(BOOL)isAnimated NS_SWIFT_NAME(rt_setNavigationBar(hidden:animated:));
 
+/// Set navigation bar's back indicator color
+- (void)rt_setNavigationBarBackIndicatorColor:(UIColor * _Nonnull)color NS_SWIFT_NAME(rt_setNavigationBar(backIndicatorColor:));
+
 - (void)rt_transparentNavigationBar;
 - (void)rt_removeNavigationBarBottomLine;
 

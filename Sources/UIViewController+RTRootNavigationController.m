@@ -23,6 +23,7 @@
 #import "UIViewController+RTRootNavigationController.h"
 #import "RTRootNavigationController.h"
 #import "RTNavigationBar.h"
+#import "UIImage+TintColor.h"
 
 @implementation UIViewController (RTRootNavigationController)
 @dynamic rt_disableInteractivePop;
@@ -268,6 +269,18 @@
         }
         [self.navigationController.navigationBar setShadowImage:[UIImage new]];
     }
+}
+
+- (void)rt_setNavigationBarBackIndicatorColor:(UIColor *)color {
+    UIButton *backButton = (UIButton *)self.navigationItem.leftBarButtonItem.customView;
+    if (!backButton) {
+        return;
+    }
+    UIImage *backImage = [backButton currentImage];
+    if (!backImage) {
+        return;
+    }
+    [backButton setImage:[backImage rt_tintColor:color] forState:UIControlStateNormal];
 }
 
 @end
