@@ -245,9 +245,18 @@
 }
 
 - (void)rt_removeNavigationBarBottomLine {
+    UIImage *shadowImage;
+#if SWIFT_PACKAGE
+    shadowImage = [UIImage imageNamed:@"shadow-image-transparent" inBundle:RTNavigationController_RTNavigationController_SWIFTPM_MODULE_BUNDLE() compatibleWithTraitCollection:nil];
+#else
+    NSString *bundlePath = [[NSBundle bundleForClass:[self class]].resourcePath stringByAppendingPathComponent:@"RTNavigationController.bundle"];
+    NSBundle *bundle = [NSBundle bundleWithPath:bundlePath];
+    shadowImage = [UIImage imageNamed:@"shadow-image-transparent" inBundle:bundle compatibleWithTraitCollection:nil];
+#endif
+    
     if (@available(iOS 13.0, *)) {
-        [self standardAppearance].shadowImage = [UIImage new];
-        [self scrollEdgeAppearance].shadowImage = [UIImage new];
+        [self standardAppearance].shadowImage = shadowImage;
+        [self scrollEdgeAppearance].shadowImage = shadowImage;
     }
     
     if (!self.navigationController || !self.navigationController.navigationBar || self.navigationController.navigationBar.isHidden) {
@@ -257,7 +266,7 @@
         [(RTNavigationBar *)self.navigationController.navigationBar setRemoveBottomLine:YES];
         return;
     }
-    [self.navigationController.navigationBar setShadowImage:[UIImage new]];
+    [self.navigationController.navigationBar setShadowImage:shadowImage];
 }
 
 @end
