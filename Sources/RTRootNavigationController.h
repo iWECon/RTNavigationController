@@ -26,6 +26,9 @@
 
 #import "UIViewController+RTRootNavigationController.h"
 
+#define POD_BUNDLE_PATH [[NSBundle bundleForClass:[RTRootNavigationController class]].resourcePath stringByAppendingPathComponent:@"RTNavigationController.bundle"]
+
+#define POD_BUNDLE [NSBundle bundleWithPath:POD_BUNDLE_PATH]
 
 @interface RTContainerController : UIViewController
 @property (nonatomic, readonly, strong) __kindof UIViewController *contentViewController;

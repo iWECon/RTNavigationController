@@ -697,9 +697,7 @@ __attribute((overloadable)) static inline UIViewController *RTSafeWrapViewContro
 #if SWIFT_PACKAGE
                 backImg = [UIImage imageNamed:@"general_back" inBundle:SWIFTPM_MODULE_BUNDLE compatibleWithTraitCollection:nil];
 #else
-                NSString *bundlePath = [[NSBundle bundleForClass:[self class]].resourcePath stringByAppendingPathComponent:@"RTNavigationController.bundle"];
-                NSBundle *bundle = [NSBundle bundleWithPath:bundlePath];
-                backImg = [UIImage imageNamed:@"general_back" inBundle:bundle compatibleWithTraitCollection:nil];
+                backImg = [UIImage imageNamed:@"general_back" inBundle:POD_BUNDLE compatibleWithTraitCollection:nil];
 #endif
             }
             

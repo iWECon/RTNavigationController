@@ -247,11 +247,9 @@
 - (UIImage *)shadowImageWithTransparent {
     UIImage *shadowImage;
 #if SWIFT_PACKAGE
-    shadowImage = [UIImage imageNamed:@"shadow_image_transparent" inBundle:RTNavigationController_RTNavigationController_SWIFTPM_MODULE_BUNDLE() compatibleWithTraitCollection:nil];
+    shadowImage = [UIImage imageNamed:@"shadow_image_transparent" inBundle:SWIFTPM_MODULE_BUNDLE compatibleWithTraitCollection:nil];
 #else
-    NSString *bundlePath = [[NSBundle bundleForClass:[self class]].resourcePath stringByAppendingPathComponent:@"RTNavigationController.bundle"];
-    NSBundle *bundle = [NSBundle bundleWithPath:bundlePath];
-    shadowImage = [UIImage imageNamed:@"shadow_image_transparent" inBundle:bundle compatibleWithTraitCollection:nil];
+    shadowImage = [UIImage imageNamed:@"shadow_image_transparent" inBundle:POD_BUNDLE compatibleWithTraitCollection:nil];
 #endif
     return shadowImage;
 }
